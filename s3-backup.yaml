@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  Environment:
+    Type: String
+    
+Resources:
+  BackupBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: !Sub central-logs-backup-${AWS::AccountId}
+    VersioningConfiguration:
+    Status: Enabled
+    BucketEncryption:
+    ServerSideEncryptionConfiguration:
+      - ServerSideEncryptionByDefault:
+        SSEAlgorithm: AES256
+    Tags:
+        - Key: Name
+          Value: !Sub "${BackupBucket}-${Environment}"
+Outputs:
+  BackupBucketName:
+    Value: !Ref BackupBucket
+
+  BackupBucketArn:
+    Value: !GetAtt BackupBucket.Arn

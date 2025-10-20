@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  DomainName:
+    Type: String
+  
+  EngineVersion:
+    Type: String
+
+  InstanceType:
+    Type: String
+
+  InstanceCount:
+    Type: Number
+
+  Enviroment:
+    Type: String
+
+  
+Resources:
+  OpenSearchDomain:
+  Type: AWS::OpenSearchService::Domain
+  Properties:
+    DomainName: !Ref DomainName
+    EngineVersion: !Ref EngineVersion
+    ClusterConfig:
+    InstanceType: !Ref InstanceType
+    InstanceCount: !Ref InstanceCount
+    EBSOptions:
+      EBSEnabled: true
+      VolumeSize: 20
+    NodeToNodeEncryptionOptions:
+      Enabled: true
+    EncryptionAtRestOptions:
+      Enabled: true
+    DomainEndpointOptions:
+      EnforceHTTPS: true
+    Tags:
+        - Key: Name
+          Value: !Sub "${OpenSearchDomain}-${Environment}"
+
+Outputs:
+  OpenSearchDomainEndpoint:
+    Value: !GetAtt OpenSearchDomain.DomainEndpoint
+
+  OpenSearchDomainArn:
+    Value: !GetAtt OpenSearchDomain.Arn

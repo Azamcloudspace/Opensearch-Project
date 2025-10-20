@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  Environment:
+    Type: String
+
+  DomainName:
+    Type: String
+    
+  EngineVersion:
+    Type: String
+
+  InstanceCount:
+    Type: Number
+    
+  InstanceType:
+    Type: String
+
+  DeliveryStreamName:
+    Type: String
+
+  DeliveryStreamType:
+    Type: String
+    
+  IndexName:
+    Type: String
+  
+  LogGroupName:
+    Type: String
+
+
+Resources:
+  OpenSearchStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://mybucket.s3.amazonaws.com/templates/opensearch.yaml
+      Parameters:
+        Environment: !Ref Environment
+        DomainName: !Ref DomainName
+        EngineVersion: !Ref EngineVersion
+        InstanceCount: !Ref InstanceCount
+        InstanceType: !Ref InstanceType
+        
+
+  FirehoseStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://mybucket.s3.amazonaws.com/templates/firehose.yaml
+      Parameters:
+        Environment: !Ref Environment
+        DeliveryStreamName: !Ref DeliveryStreamName
+        IndexName: !Ref IndexName
+        DeliveryStreamType: !Ref DeliveryStreamType
+        OpenSearchDomainArn: !GetAtt OpenSearchStack.Outputs.OpenSearchDomainArn
+
+  CwTOFireStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://mybucket.s3.amazonaws.com/templates/cwtofire.yaml
+      Parameters:
+        Environment: !Ref Environment
+        LogGroupName: !Ref LogGroupName
+        FirehoseStreamArn: !GetAtt FirehoseStack.Outputs.FirehoseStreamArn
+    
+
+  S3BackupStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://mybucket.s3.amazonaws.com/templates/s3-backup.yaml
+      Parameters:
+        Environment: !Ref Environment

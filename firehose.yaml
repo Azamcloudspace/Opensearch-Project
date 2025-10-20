@@ -1,0 +1,85 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  OpenSearchDomainArn:
+    Type: String
+
+  BackupBucketArn:
+    Type: String
+
+  DeliveryStreamName:
+    Type: String
+
+  DeliveryStreamType:
+    Type: String
+
+  IndexName:
+    Type: String
+
+  Environment:
+    Type: String
+    
+
+Resources:
+  FirehoseRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: firehose.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: FirehosePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                Resource: !Sub "${BackupBucketArn}/*"
+
+              - Effect: Allow
+                Action:
+                  - es:ESHttpPost
+                  - es:ESHttpPut
+                Resource: !Sub "${OpenSearchDomainArn}/*"
+
+              - Effect: Allow
+                Action:
+                  - logs:PutLogEvents
+                  - logs:CreateLogStream
+                  - logs:CreateLogGroup
+                Resource: "*"
+      Tags:
+        - Key: Name
+          Value: !Sub "${FirehoseRole}-${Environment}"
+
+
+  FirehoseStream:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties:
+      DeliveryStreamName: !Ref DeliveryStreamName
+      DeliveryStreamType: !Ref DeliveryStreamType
+      AmazonOpenSearchServerlessDestinationConfiguration:
+        DomainARN: !Ref OpenSearchDomainArn
+        IndexName: !Ref IndexName
+        RoleARN: !GetAtt FirehoseRole.Arn
+        S3BackupMode: AllDocuments
+        S3Configuration:
+          RoleARN: !GetAtt FirehoseRole.Arn
+          BucketARN: !Ref BackupBucketArn
+      Tags:
+        - Key: Name
+          Value: !Sub "${FirehoseStream}-${Environment}"
+
+
+Outputs:
+  FirehoseStreamName:
+    Value: !Ref FirehoseStream
+
+  FirehoseStreamArn:
+    Value: !GetAtt FirehoseStream.Arn

@@ -1,0 +1,45 @@
+[
+  {
+    "ParameterKey": "DomainName",
+    "ParameterValue": "central-logs"
+  },
+  {
+    "ParameterKey": "EngineVersion",
+    "ParameterValue": "OpenSearch_3.1"
+  },
+  {
+    "ParameterKey": "InstanceCount",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "Enviroment",
+    "ParameterValue": "prod"
+  },
+  {
+    "ParameterKey": "DeliveryStreamName",
+    "ParameterValue": "central-logs-stream"
+  },
+  {
+    "ParameterKey": "DeliveryStreamType",
+    "ParameterValue": "DirectPut"
+  },
+  {
+    "ParameterKey": "IndexName",
+    "ParameterValue": "cw-logs"
+  },
+  {
+    "ParameterKey": "LogGroupName",
+    "ParameterValue": "/aws/codebuild/eb-build"
+  },
+  {
+    "ParameterKey": "InstanceType",
+    "ParameterValue": "t3.small.search"
+  }
+]
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ phases:
       - aws s3 cp opensearch.yaml s3://iac-bucket-azamcloud/
       - aws s3 cp firehose.yaml s3://iac-bucket-azamcloud/
       - aws s3 cp cwtofire.yaml s3://iac-bucket-azamcloud/ 
-      - aws cloudformation deploy --template-file masterstack.yaml --stack-name Opensearch-stack(dev) --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://prod-params.json
+      - aws cloudformation deploy --template-file masterstack.yaml --stack-name Opensearch-stack-dev --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://prod-params.json
 
 artifacts:
   files:

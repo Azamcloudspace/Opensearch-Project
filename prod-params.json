@@ -12,8 +12,8 @@
     "ParameterValue": "2"
   },
   {
-    "ParameterKey": "Enviroment",
-    "ParameterValue": "prod"
+    "ParameterKey": "Environment",
+    "ParameterValue": "dev"
   },
   {
     "ParameterKey": "DeliveryStreamName",
@@ -36,6 +36,7 @@
     "ParameterValue": "t3.small.search"
   }
 ]
+
 
 
 

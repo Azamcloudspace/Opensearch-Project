@@ -16,8 +16,6 @@ Parameters:
   Environment:
     Type: String
 
-  FirehoseRoleArn:
-    Type: String
 
 Resources:
   OpenSearchDomain:
@@ -48,5 +46,6 @@ Outputs:
 
   OpenSearchDomainArn:
     Value: !GetAtt OpenSearchDomain.Arn
+
 
 

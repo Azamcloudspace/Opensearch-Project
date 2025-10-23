@@ -54,7 +54,7 @@ Resources:
         IndexName: !Ref IndexName
         DeliveryStreamType: !Ref DeliveryStreamType
         OpenSearchDomainArn: !GetAtt OpenSearchStack.Outputs.OpenSearchDomainArn
-        BackupBucketArn: !GetAtt.S3BackupStack.Outputs.BackupBucketArn
+        BackupBucketArn: !GetAtt S3BackupStack.Outputs.BackupBucketArn
 
   CwTOFireStack:
     Type: AWS::CloudFormation::Stack
@@ -73,6 +73,7 @@ Resources:
       Parameters:
         Environment: !Ref Environment
         BucketName: !Ref  BucketName
+
 
 
 

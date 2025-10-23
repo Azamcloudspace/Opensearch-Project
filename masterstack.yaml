@@ -32,7 +32,7 @@ Resources:
   OpenSearchStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://mybucket.s3.amazonaws.com/templates/opensearch.yaml
+      TemplateURL: https://mybucket.s3.amazonaws.com/iac-bucket-azamcloud/opensearch.yaml
       Parameters:
         Environment: !Ref Environment
         DomainName: !Ref DomainName
@@ -44,7 +44,7 @@ Resources:
   FirehoseStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://mybucket.s3.amazonaws.com/templates/firehose.yaml
+      TemplateURL: https://mybucket.s3.amazonaws.com/iac-bucket-azamcloud/firehose.yaml
       Parameters:
         Environment: !Ref Environment
         DeliveryStreamName: !Ref DeliveryStreamName
@@ -55,7 +55,7 @@ Resources:
   CwTOFireStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://mybucket.s3.amazonaws.com/templates/cwtofire.yaml
+      TemplateURL: https://mybucket.s3.amazonaws.com/iac-bucket-azamcloud/cwtofire.yaml
       Parameters:
         Environment: !Ref Environment
         LogGroupName: !Ref LogGroupName
@@ -65,6 +65,7 @@ Resources:
   S3BackupStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://mybucket.s3.amazonaws.com/templates/s3-backup.yaml
+      TemplateURL: https://mybucket.s3.amazonaws.com/iac-bucket-azamcloud/s3-backup.yaml
       Parameters:
         Environment: !Ref Environment
+

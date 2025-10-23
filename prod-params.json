@@ -33,13 +33,14 @@
   },
   {
     "ParameterKey": "BucketName",
-    "ParameterValue": "central-logs-backup"
+    "ParameterValue": "central-logs-backup-azamcloud"
   },
   {
     "ParameterKey": "InstanceType",
     "ParameterValue": "t3.small.search"
   }
 ]
+
 
 
 

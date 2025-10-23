@@ -38,7 +38,11 @@ Resources:
 
               - Effect: Allow
                 Action:
-                  - es:*
+                  - es:ESHttpPost
+                  - es:ESHttpPut
+                  - es:DescribeElasticsearchDomain
+                  - es:DescribeElasticsearchDomainConfig
+                  
                 Resource: !Sub "${OpenSearchDomainArn}/*"
 
               - Effect: Allow
@@ -74,4 +78,5 @@ Outputs:
 
   FirehoseStreamArn:
     Value: !GetAtt FirehoseStream.Arn
+
 

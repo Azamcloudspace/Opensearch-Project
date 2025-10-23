@@ -38,8 +38,7 @@ Resources:
 
               - Effect: Allow
                 Action:
-                  - es:ESHttpPost
-                  - es:ESHttpPut
+                  - es:*
                 Resource: !Sub "${OpenSearchDomainArn}/*"
 
               - Effect: Allow
@@ -75,3 +74,4 @@ Outputs:
 
   FirehoseStreamArn:
     Value: !GetAtt FirehoseStream.Arn
+

@@ -3,22 +3,16 @@ AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
   OpenSearchDomainArn:
     Type: String
-
   BackupBucketArn:
     Type: String
-
   DeliveryStreamName:
     Type: String
-
   DeliveryStreamType:
     Type: String
-
   IndexName:
     Type: String
-
   Environment:
     Type: String
-    
 
 Resources:
   FirehoseRole:
@@ -56,15 +50,14 @@ Resources:
                 Resource: "*"
       Tags:
         - Key: Name
-          Value: !Sub "${FirehoseRole}-${Environment}"
-
+          Value: !Sub "FirehoseRole-${Environment}"
 
   FirehoseStream:
     Type: AWS::KinesisFirehose::DeliveryStream
     Properties:
       DeliveryStreamName: !Ref DeliveryStreamName
       DeliveryStreamType: !Ref DeliveryStreamType
-      AmazonOpenSearchServerlessDestinationConfiguration:
+      AmazonOpenSearchServiceDestinationConfiguration:  
         DomainARN: !Ref OpenSearchDomainArn
         IndexName: !Ref IndexName
         RoleARN: !GetAtt FirehoseRole.Arn
@@ -74,8 +67,7 @@ Resources:
           BucketARN: !Ref BackupBucketArn
       Tags:
         - Key: Name
-          Value: !Sub "${FirehoseStream}-${Environment}"
-
+          Value: !Sub "FirehoseStream-${Environment}"
 
 Outputs:
   FirehoseStreamName:

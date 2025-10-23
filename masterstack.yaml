@@ -27,6 +27,9 @@ Parameters:
   LogGroupName:
     Type: String
 
+  BucketName:
+    Type: String
+  
 
 Resources:
   OpenSearchStack:
@@ -51,6 +54,7 @@ Resources:
         IndexName: !Ref IndexName
         DeliveryStreamType: !Ref DeliveryStreamType
         OpenSearchDomainArn: !GetAtt OpenSearchStack.Outputs.OpenSearchDomainArn
+        BackupBucketArn: !GetAtt.S3BackupStack.Outputs.BackupBucketArn
 
   CwTOFireStack:
     Type: AWS::CloudFormation::Stack
@@ -68,5 +72,7 @@ Resources:
       TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/s3-backup.yaml
       Parameters:
         Environment: !Ref Environment
+        BucketName: !Ref  BucketName
+
 
 

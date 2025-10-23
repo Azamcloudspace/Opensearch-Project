@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 Parameters:
-  OpenSearchDomainArn:
+  OpenSearchEndpoint:
     Type: String
   BackupBucketArn:
     Type: String
@@ -43,7 +43,7 @@ Resources:
                   - es:DescribeElasticsearchDomain
                   - es:DescribeElasticsearchDomainConfig
                   
-                Resource: !Sub "${OpenSearchDomainArn}/*"
+                Resource: "*"
 
               - Effect: Allow
                 Action:
@@ -60,7 +60,7 @@ Resources:
     Properties:
       DeliveryStreamName: !Ref DeliveryStreamName
       DeliveryStreamType: !Ref DeliveryStreamType
-      AmazonOpenSearchServiceDestinationConfiguration:  
+      ElasticsearchDestinationConfiguration:  
         DomainARN: !Ref OpenSearchDomainArn
         IndexName: !Ref IndexName
         RoleARN: !GetAtt FirehoseRole.Arn
@@ -78,5 +78,6 @@ Outputs:
 
   FirehoseStreamArn:
     Value: !GetAtt FirehoseStream.Arn
+
 
 

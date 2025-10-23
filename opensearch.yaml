@@ -16,6 +16,9 @@ Parameters:
   Environment:
     Type: String
 
+  FirehoseRoleArn:
+    Type: String
+
 Resources:
   OpenSearchDomain:
     Type: AWS::OpenSearchService::Domain
@@ -34,6 +37,15 @@ Resources:
         Enabled: true
       DomainEndpointOptions:
         EnforceHTTPS: true
+      AccessPolicies:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Ref FirehoseRoleArn
+            Action: 'es:*'
+            Resource: !Sub "arn:aws:es:${AWS::Region}:${AWS::AccountId}:domain/${DomainName}/*"
+
       Tags:
         - Key: Name
           Value: !Sub "${DomainName}-${Environment}"
@@ -44,3 +56,4 @@ Outputs:
 
   OpenSearchDomainArn:
     Value: !GetAtt OpenSearchDomain.Arn
+

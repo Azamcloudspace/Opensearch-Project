@@ -32,10 +32,15 @@
     "ParameterValue": "/aws/codebuild/eb-build"
   },
   {
+    "ParameterKey": "BucketName",
+    "ParameterValue": "central-logs-backup"
+  },
+  {
     "ParameterKey": "InstanceType",
     "ParameterValue": "t3.small.search"
   }
 ]
+
 
 
 

@@ -6,10 +6,9 @@ Parameters:
 
   FirehoseStreamArn:
     Type: String
-  
+
   Environment:
     Type: String
-  
 
 Resources:
   CWtoFirehoseRole:
@@ -34,9 +33,7 @@ Resources:
                 Resource: !Ref FirehoseStreamArn
       Tags:
         - Key: Name
-          Value: !Sub "${CWtoFirehoseRole}-${Environment}"
-
-
+          Value: !Sub "CWtoFirehoseRole-${Environment}"
 
   LogSubscription:
     Type: AWS::Logs::SubscriptionFilter
@@ -45,10 +42,10 @@ Resources:
       FilterPattern: ""
       LogGroupName: !Ref LogGroupName
       RoleArn: !GetAtt CWtoFirehoseRole.Arn
-      Tags:
-        - Key: Name
-          Value: !Sub "${LogSubscription}-${Environment}"
 
 Outputs:
   SubscriptionName:
+    Description: Name of the CloudWatch Logs subscription filter
     Value: !Ref LogSubscription
+
+

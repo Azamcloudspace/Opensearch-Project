@@ -55,7 +55,7 @@ Resources:
         DeliveryStreamName: !Ref DeliveryStreamName
         IndexName: !Ref IndexName
         DeliveryStreamType: !Ref DeliveryStreamType
-        OpenSearchEndpoint: !GetAtt OpenSearchStack.Outputs.OpenSearchDomainEndpoint
+        OpenSearchDomainEndpoint: !GetAtt OpenSearchStack.Outputs.OpenSearchDomainEndpoint
         BackupBucketArn: !GetAtt S3BackupStack.Outputs.BackupBucketArn
 
   CwTOFireStack:
@@ -75,6 +75,7 @@ Resources:
       Parameters:
         Environment: !Ref Environment
         BucketName: !Ref  BucketName
+
 
 
 

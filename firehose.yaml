@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 Parameters:
-  OpenSearchEndpoint:
+  OpenSearchDomainEndpoint:
     Type: String
   BackupBucketArn:
     Type: String
@@ -78,6 +78,7 @@ Outputs:
 
   FirehoseStreamArn:
     Value: !GetAtt FirehoseStream.Arn
+
 
 
 

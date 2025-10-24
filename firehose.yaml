@@ -61,7 +61,7 @@ Resources:
       DeliveryStreamName: !Ref DeliveryStreamName
       DeliveryStreamType: !Ref DeliveryStreamType
       ElasticsearchDestinationConfiguration:  
-        DomainARN: !Ref OpenSearchDomainArn
+        DomainARN: !Ref OpenSearchDomainEndpoint
         IndexName: !Ref IndexName
         RoleARN: !GetAtt FirehoseRole.Arn
         S3BackupMode: AllDocuments
@@ -78,6 +78,7 @@ Outputs:
 
   FirehoseStreamArn:
     Value: !GetAtt FirehoseStream.Arn
+
 
 
 

@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 Parameters:
-  OpenSearchDomainEndpoint:
+  OpenSearchDomainArn:
     Type: String
   BackupBucketArn:
     Type: String
@@ -61,7 +61,7 @@ Resources:
       DeliveryStreamName: !Ref DeliveryStreamName
       DeliveryStreamType: !Ref DeliveryStreamType
       ElasticsearchDestinationConfiguration:  
-        DomainARN: !Ref OpenSearchDomainEndpoint
+        DomainARN: !Ref OpenSearchDomainArn
         IndexName: !Ref IndexName
         RoleARN: !GetAtt FirehoseRole.Arn
         S3BackupMode: AllDocuments
@@ -78,6 +78,7 @@ Outputs:
 
   FirehoseStreamArn:
     Value: !GetAtt FirehoseStream.Arn
+
 
 
 
